@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <link href="style.css" rel="stylesheet"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+        <script id="templateHB" type="text/x-handlebars-template">
+            <div class="wrapper">
+                <div class="column categories">
+                    <div class="title-row categories-title">Categories</div>
+
+                    {{#each categories}}
+                    <div 
+                        class="entry" 
+                        id={{ this.id }}
+                        onclick="selectCategory()"
+                        >
+                        {{ this.title }}
+                    </div>
+                    {{/each}}
+
+                    <button class="new-entry-button" id="newCategoryButton" onclick="createEntry()">New Entry</button>
+                </div>
+                <div class="column subcategories">
+                    <div class="title-row subcategories-title">Subcategories</div>
+                    
+                    {{#each categories}}
+                        {{#if selected}}
+                            {{#each subcategories}}
+                                <div 
+                                class="entry"
+                                id={{ this.id }}
+                                >
+                                {{ this.title }}
+                            </div>
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+
+                    <button class="new-entry-button" id="newSubcategoryButton" onclick="createEntry()">New Entry</button>
+                </div>
+
+                <div class="notes-body">Some filler text
+
+                </div>
+
+                <div class="control-buttons">
+                    <button class="delete" onclick="deleteEntry()">Delete</button>
+                    <button class="rename">Rename</button>
+                    <p id="activeCategoryIndicator"></p>
+                </div>
+            </div>
+        </script>
+
+        <title>nested-notes</title> 
+    </head> 
+    <body> 
+        <div class="wrapper" id="app">
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.js"></script>
+        <script src="main.js"></script> 
+    </body> 
+</html>
+
+<!-- REMAKE THIS WITHOUT VUE TOMORROW -->

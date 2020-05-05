@@ -1,0 +1,68 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background-color: #1e1e1e;
+    color: white;
+}
+.wrapper {
+    display: flex; 
+    flex-direction: row;
+}
+
+/* COLUMNS */
+.column {
+    width: 300px;
+    height: 100%; 
+    min-height: 900px;
+    border: 1px solid #1e1e1e;
+}
+.title-row {
+    background-color: #5e5e5e;
+    box-shadow: 0px 3px 2px black;
+    font-size: 1.2rem;
+}
+.entry {
+    background-color: #2e2e2e;
+    font-size: 0.9rem;
+}
+.new-entry-button {
+    border-radius: 0;
+    border: 0;
+    background-color: #1e1e1e;
+    color: white;
+    font-style: italic;
+}
+.entry, .new-entry-button, .title-row {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.entry, .new-entry-button {
+    cursor: pointer;
+}
+
+.new-entry-button:hover, .entry:hover {
+    background-color: #3e3e3e;
+}
+
+/* NOTES */
+.notes-body {
+    width: 100%;
+    padding: 20px;
+}
+
+/* CONTROL */
+.control-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    padding: 20px;
+}
+
+/* UTILITY */
+.active {
+    background-color: #1e1e1e;
+}
