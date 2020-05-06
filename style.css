@@ -1,4 +1,10 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: 
+    border-box; 
+}
+
 body {
     background-color: #1e1e1e;
     color: white;
@@ -21,7 +27,7 @@ body {
     font-size: 1.2rem;
 }
 .entry {
-    background-color: #2e2e2e;
+    background-color: #1e1e1e;
     font-size: 0.9rem;
 }
 .new-entry-button {
@@ -64,5 +70,5 @@ body {
 
 /* UTILITY */
 .active {
-    background-color: #1e1e1e;
+    background-color: #2e2e2e;
 }
