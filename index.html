@@ -5,44 +5,52 @@
         <link href="style.css" rel="stylesheet"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
+        <title>nested-notes</title> 
+    </head> 
+    <body> 
+        <div class="wrapper" id="app"></div>
+
+        <!-- Included locally, why not -->
+        <script src="thirdparty/handlebars.min-v4.7.6.js"></script>
+
+        <!-- Using Custom Helper 'ifEquals' and '@index' instead of giving each child its own ID -->
+        <!-- '../' to access variables in parent scope of context json -->
         <script id="templateHB" type="text/x-handlebars-template">
             <div class="wrapper">
                 <div class="column categories">
                     <div class="title-row categories-title">Categories</div>
 
                     {{#each categories}}
-                    <div 
-                        class="entry" 
-                        id={{ this.id }}
-                        onclick="selectCategory()"
-                        >
-                        {{ this.title }}
-                    </div>
+                        <div class="entry {{#ifEquals @index ../activeCategory}}active{{/ifEquals}}" onclick="selectCategory({{@index}})">{{title}}</div>
                     {{/each}}
 
                     <button class="new-entry-button" id="newCategoryButton" onclick="createEntry()">New Entry</button>
                 </div>
+
                 <div class="column subcategories">
                     <div class="title-row subcategories-title">Subcategories</div>
                     
                     {{#each categories}}
-                        {{#if selected}}
+                       {{#ifEquals @index ../activeCategory}}
                             {{#each subcategories}}
-                                <div 
-                                class="entry"
-                                id={{ this.id }}
-                                >
-                                {{ this.title }}
-                            </div>
+                                <div class="entry {{#ifEquals @index ../../activeSubCategory}}active{{/ifEquals}}" onclick="selectSubCategory({{@index}})">{{title}}</div>
                             {{/each}}
-                        {{/if}}
+                        {{/ifEquals}}
                     {{/each}}
 
                     <button class="new-entry-button" id="newSubcategoryButton" onclick="createEntry()">New Entry</button>
                 </div>
 
-                <div class="notes-body">Some filler text
-
+                <div class="notes-body">
+                    {{#each categories}}
+                        {{#ifEquals @index ../activeCategory}}
+                            {{#each subcategories}}
+                                {{#ifEquals @index ../../activeSubCategory}}
+                                    {{content}}
+                                {{/ifEquals}}
+                            {{/each}}
+                        {{/ifEquals}}
+                    {{/each}}
                 </div>
 
                 <div class="control-buttons">
@@ -53,16 +61,6 @@
             </div>
         </script>
 
-        <title>nested-notes</title> 
-    </head> 
-    <body> 
-        <div class="wrapper" id="app">
-
-        </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.js"></script>
         <script src="main.js"></script> 
     </body> 
 </html>
-
-<!-- REMAKE THIS WITHOUT VUE TOMORROW -->
