@@ -127,6 +127,12 @@ function createEntry() {
 function deleteEntry() {
     const type = event.target.parentNode.parentNode.dataset.type;
     const id = event.target.parentNode.parentNode.id;
+	
+	confirmed = confirm("Are you sure?");
+	
+	if (confirmed != true)
+		return;
+	
     if(type == "category") {
         context.categories.splice(id,1);
         console.log("Category removed");
