@@ -125,8 +125,8 @@ function createEntry() {
 }
 
 function deleteEntry() {
-    const type = event.target.parentNode.dataset.type;
-    const id = event.target.parentNode.id;
+    const type = event.target.parentNode.parentNode.dataset.type;
+    const id = event.target.parentNode.parentNode.id;
     if(type == "category") {
         context.categories.splice(id,1);
         console.log("Category removed");
@@ -140,8 +140,8 @@ function deleteEntry() {
 
 function updateEntry() {
     const newTitle = prompt("New title: ")
-    const type = event.target.parentNode.dataset.type;
-    const id = event.target.parentNode.id;
+    const type = event.target.parentNode.parentNode.dataset.type;
+    const id = event.target.parentNode.parentNode.id;
 
     if (newTitle == "") {
         alert("Can't be empty!");
