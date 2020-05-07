@@ -95,10 +95,13 @@ function selectSubCategory(index) {
 
 function createEntry() {
     const title = prompt("New entry: ");
-    if(title == "" || title == null) {
+	
+    if(title == "") { // prompt was empty
         alert("Input field can't be empty")
         return;
     }
+	if(!title) // prompt was cancelled
+		return;
 
     id = event.target.id;
 
@@ -122,9 +125,14 @@ function createEntry() {
 }
 
 function deleteEntry() {
-    const type = event.target.parentNode.dataset.type;
-    const id = event.target.parentNode.id;
-
+    const type = event.target.parentNode.parentNode.dataset.type;
+    const id = event.target.parentNode.parentNode.id;
+	
+	confirmed = confirm("Are you sure?");
+	
+	if (confirmed != true)
+		return;
+	
     if(type == "category") {
         context.categories.splice(id,1);
         console.log("Category removed");
@@ -138,13 +146,16 @@ function deleteEntry() {
 
 function updateEntry() {
     const newTitle = prompt("New title: ")
-    const type = event.target.parentNode.dataset.type;
-    const id = event.target.parentNode.id;
+    const type = event.target.parentNode.parentNode.dataset.type;
+    const id = event.target.parentNode.parentNode.id;
 
-    if (newTitle == "" || newTitle == null) {
+    if (newTitle == "") {
         alert("Can't be empty!");
         return
-    } 
+    }
+	if (!newTitle) // prompt was cancelled, not empty
+		return;
+	
     if (type == "category") {
         context.categories[id].title = newTitle;
         console.log("Category updated")
