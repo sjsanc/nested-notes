@@ -94,13 +94,63 @@ function selectSubCategory(index) {
 }
 
 function createEntry() {
+    const title = prompt("New entry: ");
+    if(title == "" || title == null) {
+        alert("Input field can't be empty")
+        return;
+    }
 
+    id = event.target.id;
+
+    if (id == "newCategoryButton") {
+        const newCategory = {
+                "title": title,
+                "content": "",
+                "subcategories": [],
+            }
+        context.categories.push(newCategory);
+        console.log("Category created")
+        } else {
+        const newSubcategory = {
+            "title": title,
+            "content": "",
+        }
+        context.categories[context.activeCategory].subcategories.push(newSubcategory);
+        console.log("Subcategory created")
+    }
+    compileTemplate();
 }
 
 function deleteEntry() {
+    const type = event.target.parentNode.dataset.type;
+    const id = event.target.parentNode.id;
 
+    if(type == "category") {
+        context.categories.splice(id,1);
+        console.log("Category removed");
+    }
+    if(type == "subcategory") {
+        context.categories[context.activeCategory].subcategories.splice(id,1);
+        console.log("Subcategory removed");
+    }
+    compileTemplate();
 }
 
 function updateEntry() {
+    const newTitle = prompt("New title: ")
+    const type = event.target.parentNode.dataset.type;
+    const id = event.target.parentNode.id;
 
+    if (newTitle == "" || newTitle == null) {
+        alert("Can't be empty!");
+        return
+    } 
+    if (type == "category") {
+        context.categories[id].title = newTitle;
+        console.log("Category updated")
+    } else if (type == "subcategory") {
+        context.categories[context.activeCategory].subcategories[id].title = newTitle;
+        console.log("Subcategory updated")
+    }
+    compileTemplate();
 }

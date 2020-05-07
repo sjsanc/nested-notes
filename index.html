@@ -4,6 +4,7 @@
         <meta charset="UTF-8"> 
         <link href="style.css" rel="stylesheet"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <script src="https://kit.fontawesome.com/2c7fa631b5.js" crossorigin="anonymous"></script>
 
         <title>nested-notes</title> 
     </head> 
@@ -21,7 +22,18 @@
                     <div class="title-row categories-title">Categories</div>
 
                     {{#each categories}}
-                        <div class="entry {{#ifEquals @index ../activeCategory}}active{{/ifEquals}}" onclick="selectCategory({{@index}})">{{title}}</div>
+                        <div 
+                            class="entry {{#ifEquals @index ../activeCategory}}active{{/ifEquals}}"  
+                            id="{{@index}}" 
+                            data-type="category" 
+                            onclick="selectCategory({{@index}})"
+                            >
+                            <p>{{title}}</p>
+                            <div class="controls">
+                                <i class="fas fa-times" onclick="deleteEntry()"></i>
+                                <i class="fas fa-pencil-alt" onclick="updateEntry()"></i>
+                            </div>
+                        </div>
                     {{/each}}
 
                     <button class="new-entry-button" id="newCategoryButton" onclick="createEntry()">New Entry</button>
@@ -33,7 +45,17 @@
                     {{#each categories}}
                        {{#ifEquals @index ../activeCategory}}
                             {{#each subcategories}}
-                                <div class="entry {{#ifEquals @index ../../activeSubCategory}}active{{/ifEquals}}" onclick="selectSubCategory({{@index}})">{{title}}</div>
+                                <div 
+                                    class="entry {{#ifEquals @index ../../activeSubCategory}}active{{/ifEquals}}" 
+                                    id="{{@index}}" 
+                                    data-type="subcategory" 
+                                    onclick="selectSubCategory({{@index}})">
+                                    <p>{{title}}</p>
+                                    <div class="controls">
+                                        <i class="fas fa-times" onclick="deleteEntry()"></i>
+                                        <i class="fas fa-pencil-alt" onclick="updateEntry()"></i>
+                                    </div>
+                                </div>
                             {{/each}}
                         {{/ifEquals}}
                     {{/each}}
