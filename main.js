@@ -3,6 +3,7 @@ const context = {
     // 0 by default, might need to do some checks if the context is ever empty later on
     "activeCategory": 0,
     "activeSubCategory": 0,
+    "currentInput": "",
 
     // Rest of context is the same except no manual ids
     "categories": [
@@ -16,7 +17,13 @@ const context = {
                 },
                 {
                     "title": "bash", 
-                    "content": "some notes on bash", 
+                    "content": {
+                        ops: [
+                          { insert: 'Gandalf', attributes: { bold: true } },
+                          { insert: ' the ' },
+                          { insert: 'Grey', attributes: { color: '#cccccc' } }
+                        ]
+                     }
                 }
             ],
         },
@@ -69,10 +76,20 @@ const compiledHtml = template(context);
 const app = document.getElementById("app")
 app.innerHTML = (compiledHtml);
 
+// quill instance in gobal scope
+const quill = "";
+
 // recompile Hanldlebars template
 function compileTemplate() {
     const compiledHtml = template(context);
     app.innerHTML = (compiledHtml);
+
+    // reinit quill instance with each select
+    quill = new Quill("#editor", {
+        theme: "snow",
+    });
+
+    // createQuill();
     console.log("Recompiled DOM")
 }
 
@@ -82,13 +99,13 @@ function selectCategory(index) {
 
     context.activeCategory = index;
     context.activeSubCategory = 0;
+    selectSubCategory(0);
     compileTemplate();
 }
 
 function selectSubCategory(index) {
     if (context.activeSubCategory == index)
         return
-
     context.activeSubCategory = index;
     compileTemplate();
 }
@@ -165,3 +182,30 @@ function updateEntry() {
     }
     compileTemplate();
 }
+
+// QUILL LOGIC
+const editor = document.getElementById('editor');
+
+
+// create quill instance
+const createQuill = () => {
+    const quill = new Quill("#editor", {
+        theme: "snow",
+    });
+}
+
+// initialise first quill instance 
+window.addEventListener('load', createQuill());
+
+    // const content = context.categories[context.activeCategory].subcategories[context.activeSubCategory].content;
+    // quill.setContents(content);
+    // console.log("set");
+
+// insert control buttons into quillbar
+const quillbar = document.getElementsByClassName("ql-toolbar");
+const controlButtons = document.createElement('div');
+controlButtons.id = "controlButtons";
+controlButtons.innerHTML = "<div id='save'>Save</div>"
+quillbar[0].appendChild(controlButtons)
+console.log(quillbar)
+

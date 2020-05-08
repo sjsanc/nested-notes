@@ -2,16 +2,17 @@
     margin: 0; 
     padding: 0; 
     box-sizing: 
-    border-box; 
 }
-
 body {
-    background-color: #1e1e1e;
-    color: white;
+    background-color: white;
+    color: black;
 }
 .wrapper {
     display: flex; 
     flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
 }
 
 /* COLUMNS */
@@ -19,16 +20,21 @@ body {
     min-width: 230px;
     height: 100%; 
     min-height: 900px;
-    border: 1px solid #1e1e1e;
+    border-right: 1px solid #ccc;
+    position: relative;
+    right: -1px;
+    z-index: 1;
 }
 .title-row {
-    background-color: #5e5e5e;
-    box-shadow: 0px 3px 2px black;
+    background-color: white;
     font-size: 1.2rem;
     text-align: center;
+    text-decoration: underline;
+    border-bottom: 1px solid #ccc;
 }
 .entry {
-    background-color: #1e1e1e;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
     font-size: 0.9rem;
     display: flex;
     flex-direction: row;
@@ -56,8 +62,8 @@ body {
 .new-entry-button {
     border-radius: 0;
     border: 0;
-    background-color: #1e1e1e;
-    color: white;
+    background-color: white;
+    color: black;
     font-style: italic;
     text-align: center;
 }
@@ -70,27 +76,54 @@ body {
 }
 
 .new-entry-button:hover, .entry:hover {
-    background-color: #3e3e3e;
+    background-color: #BEEEFF;
+    color: black;
 }
-
 
 /* NOTES */
 .notes-body {
     width: 100%;
+    height: 100%;
     padding: 20px;
+    position: relative;
+    background-color: white;
 }
-
-/* CONTROL */
-.control-buttons {
+.editor-container {
+    width: 100%;
+    height: 250px;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    border-radius: 5px;
-    background-color: #1a1a1a;
-    padding: 20px;
+    bottom: 50px;
+    left: 0;
+}
+#editor {
+    color: black;
 }
 
 /* UTILITY */
 .active {
-    background-color: #2e2e2e;
+    background-color: #4992FF;
+    color: white;
+}
+
+/* QUILLBAR */
+.ql-toolbar {
+    position: relative;
+    width: 100%;
+}
+#controlButtons {
+    position: absolute;
+    top: 0;
+    right: 100px;
+    height: 41px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    color: #2e2e2e;
+}
+#controlButtons:hover {
+    color: #4992FF;
+    cursor: pointer;
 }

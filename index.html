@@ -5,6 +5,8 @@
         <link href="style.css" rel="stylesheet"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <script src="https://kit.fontawesome.com/2c7fa631b5.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
         <title>nested-notes</title> 
     </head> 
@@ -68,21 +70,20 @@
                         {{#ifEquals @index ../activeCategory}}
                             {{#each subcategories}}
                                 {{#ifEquals @index ../../activeSubCategory}}
-                                    {{content}}
+
                                 {{/ifEquals}}
                             {{/each}}
                         {{/ifEquals}}
                     {{/each}}
-                </div>
-
-                <div class="control-buttons">
-                    <button class="delete" onclick="deleteEntry()">Delete</button>
-                    <button class="rename">Rename</button>
-                    <p id="activeCategoryIndicator"></p>
+                    <div class="editor-container">
+                        <div id="editor">
+                                         
+                        </div>
+                    </div>
                 </div>
             </div>
         </script>
-
         <script src="main.js"></script> 
+
     </body> 
 </html>
