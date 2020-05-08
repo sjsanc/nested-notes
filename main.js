@@ -13,17 +13,11 @@ const context = {
             "subcategories": [
                 {
                     "title": "powershell",
-                    "content": "some notes on powershell",
+                    "content": ""
                 },
                 {
                     "title": "bash", 
-                    "content": {
-                        ops: [
-                          { insert: 'Gandalf', attributes: { bold: true } },
-                          { insert: ' the ' },
-                          { insert: 'Grey', attributes: { color: '#cccccc' } }
-                        ]
-                     }
+                    "content": ""
                 }
             ],
         },
@@ -33,15 +27,15 @@ const context = {
             "subcategories": [
                 {
                     "title": "notes",
-                    "content": "some notes",
+                    "content": ""
                 },
                 {
                     "title": "todo", 
-                    "content": "some notes on eggs", 
+                    "content": ""
                 },
                 {
                     "title": "funstuff", 
-                    "content": "some notes on vr", 
+                    "content": ""
                 }
 
             ],
@@ -52,16 +46,33 @@ const context = {
             "subcategories": [
                 {
                     "title": "law",
-                    "content": "some notes on rat law",
+                    "content": ""
                 },
                 {
                     "title": "cs", 
-                    "content": "some notes on hoops", 
+                    "content": ""
                 }
             ],
         },
     ],
 }
+
+// quill editor toolbar options
+var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+  
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  
+    ['clean'],  
+    // ['custom']                                   // remove formatting button
+  ];
+
+// Shorthand for current location 
+// var currentLocation = context.categories[context.activeCategory].subcategories[context.activeSubCategory];
 
 // https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value
 // Handlebars should really have this stuff by default imho
@@ -76,23 +87,43 @@ const compiledHtml = template(context);
 const app = document.getElementById("app")
 app.innerHTML = (compiledHtml);
 
-// quill instance in gobal scope
-const quill = "";
+// quill editor instance in gobal scope
+var quill = "";
+
+const editor = document.getElementById('editor');
+
+const saveContent = () => {
+    context.categories[context.activeCategory].subcategories[context.activeSubCategory].content = quill.getContents();
+    console.log("Saved")
+}
 
 // recompile Hanldlebars template
 function compileTemplate() {
     const compiledHtml = template(context);
     app.innerHTML = (compiledHtml);
 
-    // reinit quill instance with each select
+    // reinit quill editor instance with each select
     quill = new Quill("#editor", {
+        modules: {
+            toolbar: {
+                container: toolbarOptions,
+                handlers: {
+                    // 'custom': function() {
+                    //     // placeholder
+                    // }
+                }
+            },
+        },
         theme: "snow",
     });
-
-    // createQuill();
     console.log("Recompiled DOM")
 }
 
+// initial recompile
+compileTemplate();
+
+
+// CRUD LOGIC
 function selectCategory(index) {
     if (context.activeCategory == index)
         return
@@ -100,14 +131,22 @@ function selectCategory(index) {
     context.activeCategory = index;
     context.activeSubCategory = 0;
     selectSubCategory(0);
+
     compileTemplate();
+
+    quill.setContents(context.categories[context.activeCategory].subcategories[context.activeSubCategory].content);
 }
 
 function selectSubCategory(index) {
-    if (context.activeSubCategory == index)
+    if (context.activeSubCategory == index) {
         return
+    }
+
     context.activeSubCategory = index;
+            
     compileTemplate();
+    
+    quill.setContents(context.categories[context.activeCategory].subcategories[context.activeSubCategory].content);
 }
 
 function createEntry() {
@@ -183,29 +222,14 @@ function updateEntry() {
     compileTemplate();
 }
 
-// QUILL LOGIC
-const editor = document.getElementById('editor');
-
-
-// create quill instance
-const createQuill = () => {
-    const quill = new Quill("#editor", {
-        theme: "snow",
-    });
-}
-
-// initialise first quill instance 
-window.addEventListener('load', createQuill());
-
-    // const content = context.categories[context.activeCategory].subcategories[context.activeSubCategory].content;
-    // quill.setContents(content);
-    // console.log("set");
-
 // insert control buttons into quillbar
-const quillbar = document.getElementsByClassName("ql-toolbar");
-const controlButtons = document.createElement('div');
-controlButtons.id = "controlButtons";
-controlButtons.innerHTML = "<div id='save'>Save</div>"
-quillbar[0].appendChild(controlButtons)
-console.log(quillbar)
+// const quillbar = document.getElementsByClassName("ql-toolbar");
+// const controlButtons = document.createElement('div');
+// controlButtons.id = "controlButtons";
+// controlButtons.innerHTML = "<div id='save' onclick='saveNoteEntries()'>Save</div>"
+// quillbar[0].appendChild(controlButtons)
+// console.log(quillbar)
+
+
+
 

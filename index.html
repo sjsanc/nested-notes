@@ -70,15 +70,13 @@
                         {{#ifEquals @index ../activeCategory}}
                             {{#each subcategories}}
                                 {{#ifEquals @index ../../activeSubCategory}}
-
                                 {{/ifEquals}}
                             {{/each}}
                         {{/ifEquals}}
                     {{/each}}
-                    <div class="editor-container">
-                        <div id="editor">
-                                         
-                        </div>
+
+                    <div id="editor" onkeydown="saveContent()" >
+
                     </div>
                 </div>
             </div>
