@@ -139,24 +139,26 @@ function createEntry() {
 
     id = event.target.id;
 
+    console.log(id)
     if (id == "newCategoryButton") {
-        const newCategory = {
+            const newCategory = {
                 "title": title,
                 "content": "",
                 "subcategories": [],
             }
-        context.categories.push(newCategory);
-        context.activeCategory = context.categories.length - 1;
-        console.log("Category created")
-        } else {
-        const newSubcategory = {
-            "title": title,
-            "content": "",
+            context.categories.push(newCategory);
+            context.activeCategory = context.categories.length - 1;
+            console.log("Category created")
+    } 
+    if (id == "newSubcategoryButton") {
+            const newSubcategory = {
+                "title": title,
+                "content": "",
+            }
+            context.categories[context.activeCategory].subcategories.push(newSubcategory);
+            context.activeSubCategory = context.categories[context.activeCategory].subcategories.length - 1;
+            console.log("Subcategory created")
         }
-        context.categories[context.activeCategory].subcategories.push(newSubcategory);
-        context.activeSubCategory = context.categories[context.activeCategory].subcategories.length - 1;
-        console.log("Subcategory created")
-    }
     setStorage();
     compileTemplate();
 }

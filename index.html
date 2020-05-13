@@ -34,13 +34,13 @@
                             >
                             <p>{{title}}</p>
                             <div class="controls">
-                                <span class="material-icons" onclick="deleteEntry()">clear</i>
-                                <span class="material-icons" onclick="updateEntry()">create</i>
+                                <span class="material-icons" onclick="deleteEntry()">clear</span>
+                                <span class="material-icons" onclick="updateEntry()">create</span>
                             </div>
                         </div>
                     {{/each}}
 
-                    <button class="new-entry-button" id="newCategoryButton" onclick="createEntry()"><span class="material-icons">add_circle_outline</span></button>
+                    <button class="new-entry-button" id="newCategoryButton" onclick="createEntry()"><span class="material-icons" id="newCategoryButton">add_circle_outline</span></button>
                 </div>
 
                 <div class="column subcategories">
@@ -56,15 +56,15 @@
                                     onclick="selectSubCategory({{@index}})">
                                     <p>{{title}}</p>
                                     <div class="controls">
-                                        <span class="material-icons" onclick="deleteEntry()">clear</i>
-                                        <span class="material-icons" onclick="updateEntry()">create</i>
+                                        <span class="material-icons" onclick="deleteEntry()">clear</span>
+                                        <span class="material-icons" onclick="updateEntry()">create</span>
                                     </div>
                                 </div>
                             {{/each}}
                         {{/ifEquals}}
                     {{/each}}
 
-                    <button class="new-entry-button" id="newSubcategoryButton" onclick="createEntry()"><span class="material-icons">add_circle_outline</span></button>
+                    <button class="new-entry-button" id="newSubcategoryButton" onclick="createEntry()"><span class="material-icons" id="newSubcategoryButton">add_circle_outline</span></button>
                 </div>
 
                 <div class="notes-body">
