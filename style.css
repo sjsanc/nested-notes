@@ -1,7 +1,7 @@
 * { 
     margin: 0; 
     padding: 0; 
-    box-sizing: 
+    font-family: 'Lato', sans-serif;
 }
 body {
     background-color: white;
@@ -50,12 +50,17 @@ body {
 }
 .controls {
     width: 80px;
-    margin-right: 5px;
+    margin-right: 2px;
     visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.controls i {
-    margin: 5px;
+.controls .material-icons {
+    font-size: 1.2rem;
+    padding: 0;
 }
+
 .entry:hover .controls {
     visibility: visible;
 } 
@@ -74,10 +79,16 @@ body {
 .entry, .new-entry-button {
     cursor: pointer;
 }
-
-.new-entry-button:hover, .entry:hover {
+.entry:hover {
     background-color: #BEEEFF;
     color: black;
+}
+.new-entry-button:hover, .new-entry-button .material-icons:hover {
+    color: #4992FF;
+}
+
+.material-icons {
+    padding-top: 5px;
 }
 
 /* NOTES */

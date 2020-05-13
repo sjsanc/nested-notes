@@ -1,4 +1,4 @@
-const context = {
+var context = {
     // Made these in the same scope as handlebars so you can render them with conditionals
     // 0 by default, might need to do some checks if the context is ever empty later on
     "activeCategory": 0,
@@ -8,53 +8,32 @@ const context = {
     // Rest of context is the same except no manual ids
     "categories": [
         {
-            "title": "Code References",
-            "content": "something in the category notes page",
+            "title": "First category",
+            "content": "",
             "subcategories": [
                 {
-                    "title": "powershell",
+                    "title": "First Subcategory",
                     "content": ""
                 },
-                {
-                    "title": "bash", 
-                    "content": ""
-                }
-            ],
-        },
-        {
-            "title": "Misc Notes",
-            "content": "something in",
-            "subcategories": [
-                {
-                    "title": "notes",
-                    "content": ""
-                },
-                {
-                    "title": "todo", 
-                    "content": ""
-                },
-                {
-                    "title": "funstuff", 
-                    "content": ""
-                }
-
-            ],
-        },
-        {
-            "title": "Study References",
-            "content": "something in the category notes page",
-            "subcategories": [
-                {
-                    "title": "law",
-                    "content": ""
-                },
-                {
-                    "title": "cs", 
-                    "content": ""
-                }
             ],
         },
     ],
+}
+
+// stick context in localStorage
+// localStorage.setItem('context', JSON.stringify(context));
+
+// retrieve context
+context = JSON.parse(localStorage.getItem('context'));
+
+const setStorage = () => {
+    localStorage.setItem('context', JSON.stringify(context));
+    console.log("Context stored");
+}
+
+const retrieveStorage = () => {
+    context = JSON.parse(localStorage.getItem('context'));
+    console.log("Context retreived");
 }
 
 // quill editor toolbar options
@@ -143,9 +122,8 @@ function selectSubCategory(index) {
     }
 
     context.activeSubCategory = index;
-            
+    setStorage();
     compileTemplate();
-    
     quill.setContents(context.categories[context.activeCategory].subcategories[context.activeSubCategory].content);
 }
 
@@ -168,6 +146,7 @@ function createEntry() {
                 "subcategories": [],
             }
         context.categories.push(newCategory);
+        context.activeCategory = context.categories.length - 1;
         console.log("Category created")
         } else {
         const newSubcategory = {
@@ -175,8 +154,10 @@ function createEntry() {
             "content": "",
         }
         context.categories[context.activeCategory].subcategories.push(newSubcategory);
+        context.activeSubCategory = context.categories[context.activeCategory].subcategories.length - 1;
         console.log("Subcategory created")
     }
+    setStorage();
     compileTemplate();
 }
 
